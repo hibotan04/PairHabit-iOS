@@ -84,6 +84,16 @@
     "@grpc/grpc-js": "^1.14.0",
     "postcss@^8.0.0": "^8.5.23",
     "brace-expansion@^2.0.0": "^2.0.3",
-    "@xmldom/xmldom@~0.7.0": "0.8.15"
+    "@xmldom/xmldom@~0.7.0": "0.8.15",
+    "metro": "0.83.8",
+    "glob@>=9 <14.0.2": "14.0.6",
+    "minimatch@>=7 <11.0.1": "11.0.8",
+    "uuid@<11.1.1": "11.1.1",
+    "xcode": {
+      "uuid": "11.1.1"
+    },
+    "@expo/fingerprint": {
+      "minimatch": "11.0.8"
+    }
   }
 }
