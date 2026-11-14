@@ -1,0 +1,85 @@
+{
+  "expo": {
+    "name": "PairHabit",
+    "slug": "pair-habit",
+    "version": "1.0.2",
+    "orientation": "portrait",
+    "icon": "./assets/7.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": false,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.habitpot.mobile",
+      "buildNumber": "116",
+      "entitlements": {
+        "com.apple.security.application-groups": [
+          "group.com.habitpot.mobile"
+        ]
+      },
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false,
+        "CFBundleLocalizations": [
+          "en",
+          "ja"
+        ]
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/7.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false,
+      "package": "com.habitpot.mobile",
+      "versionCode": 1
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "@bacons/apple-targets",
+        {}
+      ],
+      "expo-apple-authentication",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "ご褒美画像のアップロードに使用します。",
+          "cameraPermission": "ご褒美画像の撮影に使用します。"
+        }
+      ],
+      [
+        "expo-dynamic-app-icon",
+        {
+          "icon7": {
+            "image": "./assets/7.png",
+            "prerendered": false
+          },
+          "icon8": {
+            "image": "./assets/8.png",
+            "prerendered": false
+          },
+          "icon6": {
+            "image": "./assets/6.png",
+            "prerendered": false
+          }
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/7.png",
+          "color": "#ffffff"
+        }
+      ]
+    ],
+    "owner": "hibotan"
+  }
+}

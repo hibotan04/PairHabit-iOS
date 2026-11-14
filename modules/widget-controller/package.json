@@ -1,0 +1,21 @@
+{
+  "name": "widget-controller",
+  "version": "1.0.0",
+  "description": "A module to control iOS widgets",
+  "main": "index.ts",
+  "keywords": [
+    "react-native",
+    "expo",
+    "widget-controller",
+    "WidgetController"
+  ],
+  "author": "Hibotan",
+  "license": "MIT",
+  "peerDependencies": {
+    "expo": "*",
+    "react": "*"
+  },
+  "devDependencies": {
+    "expo-modules-core": "^1.11.0"
+  }
+}
