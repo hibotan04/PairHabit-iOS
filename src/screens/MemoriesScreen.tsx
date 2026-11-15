@@ -171,7 +171,6 @@ export default function MemoriesScreen({ memories, currency, coupleId, goals, ha
   };
 
   const confirmDelete = (memory: any) => {
-    console.log("confirmDelete called for:", memory.id);
     Alert.alert(
       t('memories.deleteTitle'),
       t('memories.deleteConfirm'),

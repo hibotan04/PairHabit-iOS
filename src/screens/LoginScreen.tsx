@@ -7,6 +7,8 @@ import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/go
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { TextInput, TouchableOpacity } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { SHA256 } from 'crypto-js';
+import { generateAppleNonce } from '../utils/appleNonce';
 import { useTranslation } from 'react-i18next';
 
 // Configure Google Sign-In
@@ -58,7 +60,6 @@ export default function LoginScreen() {
         await signInWithEmailAndPassword(auth, email, password);
       }
     } catch (error: any) {
-      console.error(error);
       let msg = t('login.authFailed');
       if (error.code === 'auth/email-already-in-use') msg = t('login.emailInUse');
       if (error.code === 'auth/invalid-email') msg = t('login.invalidEmail');
@@ -96,7 +97,6 @@ export default function LoginScreen() {
       // Sign-in the user with the credential
       await signInWithCredential(auth, googleCredential);
     } catch (error: any) {
-      console.error(error);
       if (error.code === 'SIGN_IN_CANCELLED') {
         // user cancelled the login flow
       } else if (error.code === 'IN_PROGRESS') {
@@ -116,7 +116,9 @@ export default function LoginScreen() {
   const onAppleButtonPress = async () => {
     setLoading(true);
     try {
+      const rawNonce = generateAppleNonce();
       const credential = await AppleAuthentication.signInAsync({
+        nonce: SHA256(rawNonce).toString(),
         requestedScopes: [
           AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
           AppleAuthentication.AppleAuthenticationScope.EMAIL,
@@ -131,14 +133,11 @@ export default function LoginScreen() {
       const provider = new OAuthProvider('apple.com');
       const firebaseCredential = provider.credential({
         idToken: identityToken,
-        // We are not passing nonce effectively here without expo-crypto, 
-        // but often works for basic flows. 
-        // If security rules require it, we need random string + hash.
+        rawNonce,
       });
 
       await signInWithCredential(auth, firebaseCredential);
     } catch (e: any) {
-      console.log(e);
       if (e.code === 'ERR_REQUEST_CANCELED') {
         // User canceled
       } else {

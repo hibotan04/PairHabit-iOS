@@ -154,7 +154,6 @@ const App = () => {
   useEffect(() => {
     if (!coupleId) return;
 
-    console.log("App useEffect: coupleId set to", coupleId);
     console.log("App useEffect: db object is", db);
 
     if (!db) {

@@ -13,10 +13,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { THEME_COLORS, THEME_PALETTES } from '../constants/theme';
 import { SHA256 } from 'crypto-js';
 
-import { getRandomValues } from 'expo-crypto';
-
-const generateNonce = () => Array.from(getRandomValues(new Uint8Array(16)),
-  byte => byte.toString(16).padStart(2, '0')).join('');
+import { generateAppleNonce } from '../utils/appleNonce';
 
 interface SettingsScreenProps {
   coupleId: string;
@@ -507,7 +504,7 @@ export default function SettingsScreen({ coupleId, userUid, initialThemeColor = 
 
     try {
       // Generate explicit nonce
-      rawNonce = generateNonce();
+      rawNonce = generateAppleNonce();
       const hashedNonce = SHA256(rawNonce).toString();
       const credential = await AppleAuthentication.signInAsync({
         requestedScopes: [
@@ -531,7 +528,6 @@ export default function SettingsScreen({ coupleId, userUid, initialThemeColor = 
         Alert.alert("連携成功", "Appleアカウントと連携しました！");
       }
     } catch (e: any) {
-      console.log(e);
       if (e.code === 'ERR_REQUEST_CANCELED') {
         // ignore
       } else if (e.code === 'auth/credential-already-in-use') {
@@ -601,7 +597,7 @@ export default function SettingsScreen({ coupleId, userUid, initialThemeColor = 
                           // Alert handled by system prompt usually, but we can assume user knows they need to sign in.
                           // Or we can show a specific prompt if needed, but the system FaceID prompt is self-explanatory if context is clear.
 
-                          const deleteNonceRaw = generateNonce();
+                          const deleteNonceRaw = generateAppleNonce();
                           const deleteNonceHash = SHA256(deleteNonceRaw).toString();
 
                           const deleteCredential = await AppleAuthentication.signInAsync({
@@ -632,7 +628,7 @@ export default function SettingsScreen({ coupleId, userUid, initialThemeColor = 
                             Alert.alert("確認", "古いデータを削除しました。\n連携を完了するため、もう一度Appleサインインを行ってください。");
 
                             // Generate refresh nonce
-                            const newRawNonce = generateNonce();
+                            const newRawNonce = generateAppleNonce();
                             const newHashedNonce = SHA256(newRawNonce).toString();
 
                             const newCredential = await AppleAuthentication.signInAsync({

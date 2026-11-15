@@ -51,7 +51,6 @@ export default function RedeemScreen({ navigation, route }: any) {
   };
 
   const uploadImage = async (uri: string) => {
-    console.log("Uploading image...", uri);
     if (!coupleId) {
       throw new Error("Couple ID is missing");
     }
